@@ -19,25 +19,25 @@ public class Film {
 	@Column(name = "id")
 	private Long id;
 	
-	@Column(name = "film-name")
+	@Column(name = "filmName")
 	private String filmName;
 	
-	@Column(name = "film-year")
+	@Column(name = "filmYear")
 	private String filmYear;
 	
-	@Column(name = "main-character")
+	@Column(name = "mainCharacter")
 	private String mainCharacter;
 	
-	@Column(name = "main-planet")
+	@Column(name = "mainPlanet")
 	private String mainPlanet;
 	
-	@Column(name = "film-summary")
+	@Column(name = "filmSummary")
 	public String filmSummary;
 	
-	@Column(name = "film-rating")
+	@Column(name = "filmRating")
 	public String filmRating;
 	
-	@Column(name = "file-type")
+	@Column(name = "fileType")
 	public String fileType;
 	
 	@Transient
