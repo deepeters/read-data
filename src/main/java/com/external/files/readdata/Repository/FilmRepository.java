@@ -1,5 +1,11 @@
 package com.external.files.readdata.Repository;
 
-public interface FilmRepository {
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import com.external.files.readdata.Model.Film;
+
+@Repository
+public interface FilmRepository extends CrudRepository<Film, Long> {
 
 }
