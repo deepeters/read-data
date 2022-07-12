@@ -10,6 +10,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.NumberToTextConverter;
@@ -66,33 +67,33 @@ public class FilmServiceImplementation implements FilmService {
 		while(rows.hasNext()) {
 			Row row = rows.next();
 			Film film = new Film();
-			if (row.getCell(0).getCellType() == Cell.CELL_TYPE_STRING) {
+			if (row.getCell(0).getCellType() == CellType.STRING) {
 				film.setFilmName(row.getCell(0).getStringCellValue());
 			}
 			
-			if (row.getCell(1).getCellType() == Cell.CELL_TYPE_STRING) {
+			if (row.getCell(1).getCellType() == CellType.NUMERIC) {
 				String filmYear = NumberToTextConverter.toText(row.getCell(1).getNumericCellValue());
 				film.setFilmYear(filmYear);
 			}
-			else if (row.getCell(1).getCellType() == Cell.CELL_TYPE_STRING) {
+			else if (row.getCell(1).getCellType() == CellType.STRING) {
 				film.setFilmYear(row.getCell(1).getStringCellValue());				
 			}
 			
-			if (row.getCell(2).getCellType() == Cell.CELL_TYPE_STRING) {
+			if (row.getCell(2).getCellType() == CellType.STRING) {
 				film.setMainCharacter(row.getCell(2).getStringCellValue());
 			}
-			if (row.getCell(3).getCellType() == Cell.CELL_TYPE_STRING) {
+			if (row.getCell(3).getCellType() == CellType.STRING) {
 				film.setMainPlanet(row.getCell(3).getStringCellValue());
 			}
-			if (row.getCell(4).getCellType() == Cell.CELL_TYPE_STRING) {
+			if (row.getCell(4).getCellType() == CellType.STRING) {
 				film.setFilmSummary(row.getCell(4).getStringCellValue());
 			}
 			
-			if (row.getCell(5).getCellType() == Cell.CELL_TYPE_NUMERIC) {
+			if (row.getCell(5).getCellType() == CellType.NUMERIC) {
 				String filmRating = NumberToTextConverter.toText(row.getCell(5).getNumericCellValue());
 				film.setFilmRating(filmRating);
 			}
-			else if (row.getCell(5).getCellType() == Cell.CELL_TYPE_STRING) {
+			else if (row.getCell(5).getCellType() == CellType.STRING) {
 				film.setFilmRating(row.getCell(5).getStringCellValue());				
 			}
 			
