@@ -3,7 +3,7 @@
     "filmName": "Star Wars: Episode I - The Phantom Menace",
     "filmYear": "1999",
     "mainCharacter": "Qui-Gon Jinn",
-    "mainPlanet": "Tatooine",
+    "mainPlanet": "Naboo",
     "filmSummary": "The evil Trade Federation, led by Nute Gunray is planning to take over the peaceful world of Naboo",
     "filmRating": "97%"
   },
@@ -20,7 +20,7 @@
   {
     "title": "Star Wars: Episode III - Revenge of the Sith",
     "filmYear": "2005",
-    "mainCharacter": "Anakin Skywalker",
+    "mainCharacter": "Anakin Skywalker / Darth Vader",
     "mainPlanet": "Mustafar",
     "filmSummary": "Three years after the onset of the Clone Wars; the noble Jedi Knights are spread out across the galaxy leading a massive clone army in the war against the Separatists",
     "filmRating": "99%"
