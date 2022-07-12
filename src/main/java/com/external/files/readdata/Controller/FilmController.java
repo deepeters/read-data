@@ -31,6 +31,14 @@ public class FilmController {
 	@PostMapping(value="/fileupload")
 	public String uploadFile(@ModelAttribute Film film, RedirectAttributes redirectAttributes) {
 		boolean isFlag = filmService.saveDataFromUploadfile(film.getFile());
+		
+		if(isFlag) {
+			redirectAttributes.addFlashAttribute("successmessage", "File Upload Successful!");
+		}
+		else {
+			redirectAttributes.addFlashAttribute("errormessage", "File Upload NOT Successful!");
+		}
+		
 		return "redirect:/";
 	}
 
