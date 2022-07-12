@@ -44,10 +44,9 @@ public class Film {
 	private MultipartFile file;
 	
 	//Constructors
-	public Film(Long id, String filmName, String filmYear, String mainCharacter, String mainPlanet, String filmSummary,
+	public Film(String filmName, String filmYear, String mainCharacter, String mainPlanet, String filmSummary,
 			String filmRating, String fileType) {
 		super();
-		this.id = id;
 		this.filmName = filmName;
 		this.filmYear = filmYear;
 		this.mainCharacter = mainCharacter;
