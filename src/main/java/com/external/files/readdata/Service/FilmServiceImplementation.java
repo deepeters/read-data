@@ -3,9 +3,17 @@ package com.external.files.readdata.Service;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.NumberToTextConverter;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,9 +49,81 @@ public class FilmServiceImplementation implements FilmService {
 		else if (extension.equalsIgnoreCase("csv")) {
 			isFlag = readDataFromCsv(file);
 		}
+		else if (extension.equalsIgnoreCase("xls") || extension.equalsIgnoreCase("xlsx")) {
+			isFlag = readDataFromExcel(file);
+		}
 		return isFlag;
 	}
 
+	//XLS & XLSX External Data File
+	private boolean readDataFromExcel(MultipartFile file) {
+		// TODO Auto-generated method stub
+		Workbook workbook = getWorkBook(file);
+		Sheet sheet = workbook.getSheetAt(0);
+		Iterator <Row> rows = sheet.iterator();
+		rows.next();
+		
+		while(rows.hasNext()) {
+			Row row = rows.next();
+			Film film = new Film();
+			if (row.getCell(0).getCellType() == Cell.CELL_TYPE_STRING) {
+				film.setFilmName(row.getCell(0).getStringCellValue());
+			}
+			
+			if (row.getCell(1).getCellType() == Cell.CELL_TYPE_STRING) {
+				String filmYear = NumberToTextConverter.toText(row.getCell(1).getNumericCellValue());
+				film.setFilmYear(filmYear);
+			}
+			else if (row.getCell(1).getCellType() == Cell.CELL_TYPE_STRING) {
+				film.setFilmYear(row.getCell(1).getStringCellValue());				
+			}
+			
+			if (row.getCell(2).getCellType() == Cell.CELL_TYPE_STRING) {
+				film.setMainCharacter(row.getCell(2).getStringCellValue());
+			}
+			if (row.getCell(3).getCellType() == Cell.CELL_TYPE_STRING) {
+				film.setMainPlanet(row.getCell(3).getStringCellValue());
+			}
+			if (row.getCell(4).getCellType() == Cell.CELL_TYPE_STRING) {
+				film.setFilmSummary(row.getCell(4).getStringCellValue());
+			}
+			
+			if (row.getCell(5).getCellType() == Cell.CELL_TYPE_NUMERIC) {
+				String filmRating = NumberToTextConverter.toText(row.getCell(5).getNumericCellValue());
+				film.setFilmRating(filmRating);
+			}
+			else if (row.getCell(5).getCellType() == Cell.CELL_TYPE_STRING) {
+				film.setFilmRating(row.getCell(5).getStringCellValue());				
+			}
+			
+			film.setFileType(FilenameUtils.getExtension(file.getOriginalFilename()));
+			filmRepository.save(film);
+		}
+		
+		return true;
+	}
+
+	private Workbook getWorkBook(MultipartFile file) {
+		// TODO Auto-generated method stub
+		Workbook workbook = null;
+		String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+		try {
+			if (extension.equalsIgnoreCase("xlsx")) {
+				workbook = new XSSFWorkbook(file.getInputStream());
+			}
+			else if (extension.equalsIgnoreCase("xls")) {
+				workbook = new HSSFWorkbook(file.getInputStream());
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return workbook;
+	}
+
+	
+	//CSV External Data File
 	private boolean readDataFromCsv(MultipartFile file) {
 		// TODO Auto-generated method stub
 		try {
@@ -61,6 +141,8 @@ public class FilmServiceImplementation implements FilmService {
 		}
 	}
 
+	
+	//JSON External Data File
 	private boolean readDataFromJson(MultipartFile file) {
 		// TODO Auto-generated method stub
 		try {
