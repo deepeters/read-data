@@ -39,7 +39,7 @@
 
 <form action="" th:action="@{'/fileupload'}" th:object="${film}" method="POST" enctype='multipart/form-data'>
   <div class="form-group">
-    <label for="fileupload">File Upload (CSV, JSON, XLS, XLSX): </label>
+    <label for="fileupload">File Upload (CSV, JSON, XLS, XLSX or XML): </label>
     <div class = "myForm container">
         <input type="file" class="form-control" id="file" name="file" th:field = "*{file}">
          <button type="submit" class="btn btn-primary">Submit</button>

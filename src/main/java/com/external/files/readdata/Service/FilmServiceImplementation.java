@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.external.files.readdata.Model.Film;
 import com.external.files.readdata.Repository.FilmRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 
@@ -43,6 +44,7 @@ public class FilmServiceImplementation implements FilmService {
 		// TODO Auto-generated method stub
 		boolean isFlag = false;
 		String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+		
 		if (extension.equalsIgnoreCase("json")) {
 			isFlag = readDataFromJson(file);
 		}
@@ -51,6 +53,9 @@ public class FilmServiceImplementation implements FilmService {
 		}
 		else if (extension.equalsIgnoreCase("xls") || extension.equalsIgnoreCase("xlsx")) {
 			isFlag = readDataFromExcel(file);
+		}
+		else if (extension.equalsIgnoreCase("xml")) {
+			isFlag = readDataFromXml(file);
 		}
 		return isFlag;
 	}
@@ -148,6 +153,27 @@ public class FilmServiceImplementation implements FilmService {
 		try {
 			InputStream inputStream = file.getInputStream();
 			ObjectMapper mapper = new ObjectMapper();
+			List<Film> films = Arrays.asList(mapper.readValue(inputStream, Film[].class));
+			
+			if(films!= null && films.size()>0) {
+				for (Film film : films) {
+					film.setFileType(FilenameUtils.getExtension(file.getOriginalFilename()));
+					filmRepository.save(film);
+				}
+			}
+			return true;
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+	
+	//XML External Data File
+	private boolean readDataFromXml(MultipartFile file) {
+		// TODO Auto-generated method stub
+		try {
+			InputStream inputStream = file.getInputStream();
+			XmlMapper mapper = new XmlMapper();
 			List<Film> films = Arrays.asList(mapper.readValue(inputStream, Film[].class));
 			
 			if(films!= null && films.size()>0) {
