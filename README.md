@@ -46,6 +46,8 @@ This application relies heavily on the dependancies to manage different external
 - Apache POI & POI-OOXML - Java API To Access Microsoft Format Files.
 - Jackson Databind - General data-binding functionality for Jackson: works on core streaming API for JSON files.
 - Apache Commons IO - Contains utility classes, stream implementations, file filters, file comparators, endian transformation classes, and much more.
+- Jackson Dataformat XML - Data format extension for Jackson to offer alternative support for serializing POJOs as XML and deserializing XML as pojos.
+
 
 ## BDD
 

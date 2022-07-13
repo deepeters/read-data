@@ -154,7 +154,6 @@ public class FilmServiceImplementation implements FilmService {
 			InputStream inputStream = file.getInputStream();
 			ObjectMapper mapper = new ObjectMapper();
 			List<Film> films = Arrays.asList(mapper.readValue(inputStream, Film[].class));
-			
 			if(films!= null && films.size()>0) {
 				for (Film film : films) {
 					film.setFileType(FilenameUtils.getExtension(file.getOriginalFilename()));
